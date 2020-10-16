@@ -5,10 +5,25 @@
     {% if message %}
         <div>{{ message }}</div>
     {% endif%}
-    <form action ="{%url 'login'%}" method="post">
-        {% csrf_token%}
-        <input type='text' name='username' placeholder="username">
-        <input type = 'password' name = 'password' placeholder = 'password'>
-        <input type = 'submit' value= 'login'>
-    </form>
-{%endblock%}
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+
+            <fieldset class="form-group"> 
+                <legend class="border-bottom mb-4 ">Log In</legend>
+                {{ form | crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info " type="submit" >
+                    Login
+                </button>
+                <a href="{% url 'password_reset' %}">Forgot Password?</a>
+            </div>
+        </form>
+
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need an Account? 
+                <a href="{% url 'register' %}">Sign Up Now</a>
+            </small>
+        </div>
+{% endblock %}
