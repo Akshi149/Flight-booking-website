@@ -1,12 +1,15 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login,logout
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 # Create your views here.
+
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     return render(request, 'users/user.html')
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -23,7 +26,8 @@ def login_view(request):
 
 
 def logout_view(request):
-    logout(request, user)
-    return HttpResponseRedirect(reverse('login'))
+    logout(request)
+    return render(request, 'users/login.html')
+     
      
          
